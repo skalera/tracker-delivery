@@ -1,7 +1,10 @@
 #!/usr/bin/env ruby
 
 # force bundle exec
-exec('bundle', 'exec', $PROGRAM_NAME, *ARGV) unless ENV['BUNDLE_GEMFILE']
+unless ENV['BUNDLE_GEMFILE']
+  ENV['BUNDLE_GEMFILE'] = File.join(File.dirname($PROGRAM_NAME), '..', 'Gemfile')
+  exec('bundle', 'exec', $PROGRAM_NAME, *ARGV)
+end
 
 require 'pivotal-tracker'
 
